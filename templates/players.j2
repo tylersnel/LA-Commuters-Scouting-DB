@@ -1,0 +1,59 @@
+<html>
+    <head>
+      <title>Players</title>   
+    </head>
+    <body>
+    <h1>Players</h1>
+    <a href="/">Home</a>
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+            <table border="1">
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+					    
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create our edit/delete buttons 
+						    <td><a href="edit_people/{{item.id}}" class="btn btn-default">Edit</a></td>-->
+						    <td><a href="delete_player/{{item.player_id}}" class="btn btn-default">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table> 
+<div id="insert">
+    <form id="insertPlayer" action="/players" method="POST">
+        <legend><strong>Add Person</strong></legend>
+
+        <label for ="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" required>
+        <label for ="last_name">Last name</label>
+        <input type="text" id="last_name" name="last_name" required>
+        <label for ="age">Age</label>
+        <input type="text" id="age" name="age" required>
+        <label for ="height">Height</label>
+        <input type="text" id="height" name="height" required>
+        <label for ="year">Year</label>
+        <input type="text" id="year" name="year" required>
+        <label for="teams">Team:</label>
+        <input type="submit" value="Add" name="Add_Player">
+    </form>
+</div>
+

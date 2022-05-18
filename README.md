@@ -1,2 +1,2 @@
-# LA-Commuters-Scouting-DB
-This is the LA Commuters Scouting DB with CRUD operations
+# Flask-Test
+This is mainly to follow along with the how to flask guide from class.
