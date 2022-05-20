@@ -15,10 +15,12 @@
 					    
                         <!-- Create a <th> tag with the key inside of it, this will be our header row -->
 					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
 					
                         <!-- End of this for loop -->
                         {% endfor %} 
-			<th>Delete Player</th>
+                        <th>Edit Player</th>
+                        <th>Delete Player</th>
                     </tr>
 
 				<tbody>
@@ -31,8 +33,8 @@
 						    <td> {{item[key]}} </td> 
                             {% endfor %}
 
-                            <!-- Create our edit/delete buttons 
-						    <td><a href="edit_people/{{item.id}}" class="btn btn-default">Edit</a></td>-->
+                            <!-- Create our edit/delete buttons-->
+						    <td><a href="edit_players/{{item.player_id}}" class="btn btn-default">Edit</a></td>
 						    <td><a href="delete_player/{{item.player_id}}" class="btn btn-default">Delete</a></td>
 
 					    </tr> 
@@ -56,4 +58,6 @@
         <input type="submit" value="Add" name="Add_Player">
     </form>
 </div>
+     
 
+</html>
