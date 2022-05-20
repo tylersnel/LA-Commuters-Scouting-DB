@@ -26,7 +26,7 @@ def root():
 @app.route('/players', methods=["POST", "GET"])
 def player():
     if request.method=="GET":
-        query = "SELECT * FROM players;"
+        query = "SELECT * FROM players"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -108,5 +108,4 @@ if __name__ == "__main__":
     #                                 ^^^^
     #              You can replace this number with any valid port
     
-    app.run(port=port, debug=True) 
-
+    app.run(port=65234, debug=True) 
