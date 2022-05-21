@@ -86,6 +86,75 @@ def edit_players(player_id):
         mysql.connection.commit()
 
         return redirect("/players")
+    
+@app.route('/playerteams', methods=["POST", "GET"])
+def playerteams():
+    if request.method=="GET":
+        query = "SELECT visiting_team_id, player_teams.player_id, players.first_name, players.last_name, contract_expiration FROM player_teams INNER JOIN players ON player_teams.player_id=players.player_id WHERE player_teams.player_id=players.player_id"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        query2 = "SELECT player_id, first_name, last_name FROM players"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        player_data = cur.fetchall()
+
+        query3 = "SELECT visiting_team_id, name FROM visiting_teams"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        visiting_team_data = cur.fetchall()
+
+        query4 = "SELECT * FROM players WHERE players.player_id NOT IN (SELECT player_teams.player_id FROM player_teams)"
+        cur = mysql.connection.cursor()
+        cur.execute(query4)
+        player_team_data = cur.fetchall()
+
+        return render_template("playerteams.j2", data=data, player_data=player_data, visiting_team_data=visiting_team_data, player_team_data=player_team_data)
+
+    if request.method=="POST":
+        if request.form.get("Add_Player_Team"):
+            visiting_team_id=request.form["visiting_team_id"]
+            player_id=request.form["player_id"]
+            contract_expiration=request.form["contract_expiration"]
+
+            query ="INSERT INTO player_teams (visiting_team_id, player_id, contract_expiration) VALUES (%s,%s,%s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (visiting_team_id, player_id,contract_expiration))
+            mysql.connection.commit()
+
+            return redirect("/playerteams")
+
+
+@app.route('/edit_playerteams/<int:player_id>', methods=["POST", "GET"])
+def edit_playerteams(player_id):
+    if request.method =="GET":
+        query = "SELECT * FROM player_teams WHERE player_id = %s" %(player_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data= cur.fetchall()
+
+        query2 = "SELECT visiting_team_id, name FROM visiting_teams"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        visiting_team_data = cur.fetchall()
+        
+        
+        return render_template("edit_playerteams.j2", data=data, visiting_team_data=visiting_team_data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_PlayerTeams"):
+            player_id=request.form["player_id"]
+            visiting_team_id = request.form["visiting_team_id"]
+            contract_expiration = request.form["contract_expiration"]
+
+
+        query = "UPDATE player_teams SET player_teams.visiting_team_id = %s, player_teams.contract_expiration = %s WHERE player_teams.player_id= %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, ( visiting_team_id, contract_expiration, player_id))
+        mysql.connection.commit()
+
+        return redirect("/playerteams")
 
 
 @app.route('/playerstats')
