@@ -1,0 +1,72 @@
+<html>
+
+<head>
+	<title>Edit Player Teams</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>Edit Player Teams</h1>
+
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Player Teams: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in players-->
+            <form id="Edit_PlayerTeams" action="/edit_playerteams/{{data[0].player_id}}" method="post">
+                <legend><strong>Edit Player Teams</strong></legend>
+                <fieldset>
+         
+                    <input type="hidden" value="{{data[0].player_id}}" class="form-control" id="player_id" name="player_id" required>
+
+                    <label for="model">Visiting Team:</label>
+                            {% if visiting_team_data %}
+                                <select name="visiting_team_id" id="team-select">
+                                <option disabled selected value>-Choose New Team-</option>
+                                {% for item in visiting_team_data %}
+                                <option value="{{item.visiting_team_id}}">{{item.visiting_team_id, item.name}} </option>
+                                {% endfor %}
+                            {% endif %}
+                                </select>
+
+                    <label for="make">Contract Expiration:</label>
+                    <input type="date" value="{{data[0].contract_expiration}}" class="form-control" id="contract_expiration" name="contract_expiration" pattern="[A-Za-z]{1,}" required>
+
+
+
+                
+                </fieldset>
+                <input type="submit" value="Edit Player Teams" name="Edit_PlayerTeams" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/playerteams'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+
+</body>
+
+</html>
