@@ -1,0 +1,71 @@
+<html>
+
+<head>
+	<title>Edit Game Sales</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Game: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in player_stats-->
+            <form id="Edit_Home_Game_Sales" action="/edit_home_game_sales/{{data[0].home_game_id}}" method="post">
+                <legend><strong>Edit Game Sales</strong></legend>
+                <fieldset>
+
+                    <input type="hidden" value="{{data[0].home_game_id}}" class="form-control" id="home_game_id" name="home_game_id" required>
+
+                    <input type="date" value="{{data[0].home_game_date}}" class="form-control" id="home_game_date" name="home_game_date" required>
+
+                    <label for="make">Visitor:</label>
+				    <select name="home_game_id" id="home_game_id">
+                        {% for item in visiting_team_data %}
+                        <option value="{{item.visiting_team_id}}">{{item.name}} </option>
+                        {% endfor %}
+            		</select>
+                        
+                    <label for="color">Tickets:</label>
+                    <input type="number" value="{{data[0].tickets_sold}}" class="form-control" id="tickets_sold" name="tickets_sold" required> 
+
+                    <label for="color">Merchandise:</label>
+                    <input type="float" value="{{data[0].merchandise_revenue}}" class="form-control" id="merchandise_revenue" name="merchandise_revenue" required> 
+
+                    <label for="color">Concessions:</label>
+                    <input type="float" value="{{data[0].concession_revenue}}" class="form-control" id="concession_revenue" name="concession_revenue" required> 
+                
+                </fieldset>
+                <input type="submit" value="Edit Sales" name="Edit_Home_Game_Sales" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/home_game_sales'><input class="btn" type="button" value="Cancel"></a>
+            </form>
+
+</html>
