@@ -372,7 +372,7 @@ def edit_home_game_sales(home_game_id):
             query = "UPDATE home_game_sales SET home_game_sales.home_game_date = %s, home_game_sales.tickets_sold = %s, home_game_sales.merchandise_revenue = %s, \
             home_game_sales.concession_revenue = %s WHERE home_game_sales.home_game_id = %s"
             cur = mysql.connection.cursor()
-            cur.execute(query, (home_game_date, tickets_sold, merchandise_revenue, concession_revenue))
+            cur.execute(query, (home_game_date, tickets_sold, merchandise_revenue, concession_revenue, home_game_id))
             mysql.connection.commit()
 
             return redirect("/home_game_sales")
@@ -381,7 +381,7 @@ def edit_home_game_sales(home_game_id):
             query = "UPDATE home_game_sales SET home_game_sales.home_game_date = %s, home_game_sales.visiting_team_id = %s, home_game_sales.tickets_sold = %s, \
             home_game_sales.merchandise_revenue = %s, home_game_sales.concession_revenue = %s WHERE home_game_sales.home_game_id = %s"
             cur = mysql.connection.cursor()
-            cur.execute(query, (home_game_date, visiting_team_id, tickets_sold, merchandise_revenue, concession_revenue))
+            cur.execute(query, (home_game_date, visiting_team_id, tickets_sold, merchandise_revenue, concession_revenue, home_game_id))
             mysql.connection.commit()
     
             return redirect("/home_game_sales")
