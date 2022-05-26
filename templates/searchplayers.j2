@@ -1,0 +1,49 @@
+<!--Citation for structure of this page-->
+<!--Date: 5/26/2022-->
+<!--Based on:-->
+<!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
+
+<html>
+
+<head>
+	<title>Search</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<h1>Search Results</h1>
+
+        <table border="1" cellpadding="5"> 
+            <caption> Search Results: </caption>
+          
+            {% if data %}
+                <thead>
+                    <tr>
+                        
+                        {% for key in data[0].keys() %}
+
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    
+                    {% for item in data %}
+                    <tr>
+                        
+                        {% for key in item.keys() %}
+                        
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        
+
+</body>
+
+
+
+
+</html>
