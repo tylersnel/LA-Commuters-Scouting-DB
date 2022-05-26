@@ -48,7 +48,7 @@
                     <input type="date" value="{{data[0].home_game_date}}" class="form-control" id="home_game_date" name="home_game_date" required>
 
                     <label for="make">Visitor:</label>
-				    <select name="home_game_id" id="home_game_id">
+				    <select name="visiting_team_id" id="visiting_team_id">
                         {% for item in visiting_team_data %}
                         <option value="{{item.visiting_team_id}}">{{item.name}} </option>
                         {% endfor %}
