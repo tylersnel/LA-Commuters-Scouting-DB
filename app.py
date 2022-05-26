@@ -1,8 +1,13 @@
+from crypt import methods
 from flask import Flask, render_template, json, redirect
 from flask_mysqldb import MySQL
 from flask import request
 import os
 
+# Citations for the following functions:
+# Dates 5/26/2022
+# Based on:
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 # Configuration
 
@@ -22,7 +27,7 @@ mysql = MySQL(app)
 @app.route('/')
 def root():
     return render_template("main.j2")
-
+############### Players ###############################
 @app.route('/players', methods=["POST", "GET"])
 def player():
     if request.method=="GET":
@@ -53,6 +58,22 @@ def player():
             mysql.connection.commit()
 
             return redirect("/players")
+
+@app.route("/searchplayers", methods=["POST"])
+def player_search():
+        if request.method == "POST":
+            if request.form.get("Search_Player"):
+                first_name = request.form["first_name"]
+                last_name = request.form["last_name"]
+                age = request.form["age"]
+                height = request.form["height"]
+                year = request.form["year"]
+            query = "SELECT players.player_id, first_name, last_name, age, height, year, player_teams.visiting_team_id FROM players LEFT JOIN player_teams ON player_teams.player_id=players.player_id WHERE players.first_name= %s OR players.last_name= %s OR players.age= %s or players.height = %s or players.year = %s "
+            cur = mysql.connection.cursor()
+            cur.execute(query, (first_name, last_name, age, height, year))
+            data = cur.fetchall()
+            return render_template("searchplayers.j2", data=data)
+
 
 @app.route("/delete_player/<int:player_id>")
 def delete_player(player_id):
@@ -157,71 +178,7 @@ def edit_playerteams(player_id):
 
         return redirect("/playerteams")
 
-
-@app.route('/playerstats')
-def playerstats():
-    return render_template("playerstats.html")
-
-@app.route('/homegamesales')
-def homegamesales():
-    return render_template("homegamesales.html")
-
-############### Visiting Teams ###############################
-@app.route('/visitingteams', methods=["POST", "GET"])
-def visitingteams():
-    if request.method=="GET":
-        query = "SELECT * FROM visiting_teams"
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        data = cur.fetchall()
-    
-        return render_template("visitingteams.j2", data=data)
-
-    if request.method=="POST":
-        if request.form.get("Add_Visiting_Team"):
-            name=request.form["name"]
-            city=request.form["city"]
-            stadium=request.form["stadium"]
-        
-            query = "INSERT INTO visiting_teams (name, city, stadium) VALUES (%s,%s,%s) "
-            cur = mysql.connection.cursor()
-            cur.execute(query, (name, city, stadium))
-            mysql.connection.commit()
-
-            return redirect("/visitingteams")
-
-@app.route("/delete_visiting_team/<int:visiting_team_id>")
-def delete_visiting_team(visiting_team_id):
-    query = "DELETE FROM visiting_teams WHERE visiting_team_id= '%s'"
-    cur =mysql.connection.cursor()
-    cur.execute(query, (visiting_team_id,))
-    mysql.connection.commit()
-    return redirect("/visitingteams")
-
-@app.route('/edit_visiting_team/<int:visiting_team_id>', methods=["POST", "GET"])
-def edit_visitingteams(visiting_team_id):
-    if request.method =="GET":
-        query = "SELECT * FROM visiting_teams WHERE visiting_team_id = %s" %(visiting_team_id)
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        data= cur.fetchall()
-        
-        return render_template("edit_visitingteams.j2", data=data)
-
-    if request.method == "POST":
-        if request.form.get("Edit_VisitingTeam"):
-            name = request.form["name"]
-            city = request.form["city"]
-            stadium = request.form["stadium"] 
-
-
-        query = "UPDATE visiting_teams SET visiting_teams.name= %s, visiting_teams.city= %s, visiting_teams.stadium= %s WHERE visiting_teams.visiting_team_id= %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query, (name, city, stadium, visiting_team_id))
-        mysql.connection.commit()
-
-        return redirect("/visitingteams")
-    
+############### Player Stats ###############################
 @app.route('/player_stats', methods=["POST", "GET"])
 def player_stats():
     if request.method == "GET":
@@ -292,12 +249,11 @@ def edit_player_stats(player_stats_id):
 
         return redirect("/player_stats")
 
+############### Home Game Sales ###############################
 @app.route('/home_game_sales', methods=["POST", "GET"])
 def home_game_sales():
     if request.method == "GET":
-        query = "SELECT home_game_sales.home_game_id as Game, home_game_sales.home_game_date AS Date, home_game_sales.tickets_sold AS Tickets, \
-        home_game_sales.merchandise_revenue AS Merchandise, home_game_sales.concession_revenue AS Concessions, visiting_teams.name as Visitor \
-        FROM home_game_sales INNER JOIN visiting_teams ON visiting_teams.visiting_team_id = home_game_sales.visiting_team_id"
+        query = "SELECT * FROM home_game_sales"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -346,8 +302,8 @@ def delete_home_game_sales(home_game_id):
 @app.route("/edit_home_game_sales/<int:home_game_id>", methods=["POST", "GET"])
 def edit_home_game_sales(home_game_id):
     if request.method == "GET":
-            query = "SELECT home_game_sales.home_game_id as Game, home_game_sales.home_game_date AS Date, home_game_sales.tickets_sold AS Tickets, \
-            home_game_sales.merchandise_revenue AS Merchandise, home_game_sales.concession_revenue AS Concessions, visiting_teams.name as Visitor \
+            query = "SELECT home_game_sales.home_game_id , home_game_sales.home_game_date, home_game_sales.tickets_sold, \
+            home_game_sales.merchandise_revenue, home_game_sales.concession_revenue, visiting_teams.name \
             FROM home_game_sales INNER JOIN visiting_teams ON visiting_teams.visiting_team_id = home_game_sales.visiting_team_id WHERE home_game_id = %s" % (home_game_id)
             cur = mysql.connection.cursor()
             cur.execute(query)
@@ -386,6 +342,61 @@ def edit_home_game_sales(home_game_id):
     
             return redirect("/home_game_sales")
 
+############### Visiting Teams ###############################
+@app.route('/visitingteams', methods=["POST", "GET"])
+def visitingteams():
+    if request.method=="GET":
+        query = "SELECT * FROM visiting_teams"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+    
+        return render_template("visitingteams.j2", data=data)
+
+    if request.method=="POST":
+        if request.form.get("Add_Visiting_Team"):
+            name=request.form["name"]
+            city=request.form["city"]
+            stadium=request.form["stadium"]
+        
+            query = "INSERT INTO visiting_teams (name, city, stadium) VALUES (%s,%s,%s) "
+            cur = mysql.connection.cursor()
+            cur.execute(query, (name, city, stadium))
+            mysql.connection.commit()
+
+            return redirect("/visitingteams")
+
+@app.route("/delete_visiting_team/<int:visiting_team_id>")
+def delete_visiting_team(visiting_team_id):
+    query = "DELETE FROM visiting_teams WHERE visiting_team_id= '%s'"
+    cur =mysql.connection.cursor()
+    cur.execute(query, (visiting_team_id,))
+    mysql.connection.commit()
+    return redirect("/visitingteams")
+
+@app.route('/edit_visiting_team/<int:visiting_team_id>', methods=["POST", "GET"])
+def edit_visitingteams(visiting_team_id):
+    if request.method =="GET":
+        query = "SELECT * FROM visiting_teams WHERE visiting_team_id = %s" %(visiting_team_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data= cur.fetchall()
+        
+        return render_template("edit_visitingteams.j2", data=data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_VisitingTeam"):
+            name = request.form["name"]
+            city = request.form["city"]
+            stadium = request.form["stadium"] 
+
+
+        query = "UPDATE visiting_teams SET visiting_teams.name= %s, visiting_teams.city= %s, visiting_teams.stadium= %s WHERE visiting_teams.visiting_team_id= %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (name, city, stadium, visiting_team_id))
+        mysql.connection.commit()
+
+        return redirect("/visitingteams")
 
 # Listener
 
@@ -395,3 +406,4 @@ if __name__ == "__main__":
     #              You can replace this number with any valid port
     
     app.run(port=65234, debug=True) 
+ 
