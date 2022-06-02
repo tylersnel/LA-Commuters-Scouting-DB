@@ -302,9 +302,7 @@ def delete_home_game_sales(home_game_id):
 @app.route("/edit_home_game_sales/<int:home_game_id>", methods=["POST", "GET"])
 def edit_home_game_sales(home_game_id):
     if request.method == "GET":
-            query = "SELECT home_game_sales.home_game_id , home_game_sales.home_game_date, home_game_sales.tickets_sold, \
-            home_game_sales.merchandise_revenue, home_game_sales.concession_revenue, visiting_teams.name \
-            FROM home_game_sales INNER JOIN visiting_teams ON visiting_teams.visiting_team_id = home_game_sales.visiting_team_id WHERE home_game_id = %s" % (home_game_id)
+            query = "SELECT * FROM home_game_sales WHERE home_game_id = %s" % (home_game_id)
             cur = mysql.connection.cursor()
             cur.execute(query)
             data = cur.fetchall()
