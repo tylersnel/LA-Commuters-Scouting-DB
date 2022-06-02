@@ -50,6 +50,7 @@
 
                     <label for="make">Visitor:</label>
 				    <select name="visiting_team_id" id="visiting_team_id">
+			<option value="" </option>
                         {% for item in visiting_team_data %}
                         <option value="{{item.visiting_team_id}}">{{item.name}} </option>
                         {% endfor %}
