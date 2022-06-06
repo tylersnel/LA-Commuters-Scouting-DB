@@ -3,14 +3,16 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
 
 <html>
     <head>
       <title>Player Stats</title>   
     </head>
     <body>
-    <h1>Player Stats</h1>
-    <a href="/">Home</a> - <a href="/visitingteams">Visiting Teams</a> - <a href="/players">Players</a> - <a href="/player_stats">Player Stats</a> - <a href="/home_game_sales">Home Game Sales</a> - <a href="/playerteams">Player Teams</a>
+    <h1 class="header allh1">Player Stats</h1>
+    <div class="topnav"><a href="/">Home</a> - <a href="/visitingteams">Visiting Teams</a> - <a href="/players">Players</a> - <a href="/player_stats">Player Stats</a> - <a href="/home_game_sales">Home Game Sales</a> - <a href="/playerteams">Player Teams</a></div>
 
             {% if data %}
             <table border="1">
@@ -66,10 +68,11 @@
 				<input type="number" class="form-control" id="rebounds" name="rebounds" required> 
 
 				<label for="color">Assists:</label>
-				<input type="number" class="form-control" id="assists" name="assists" required> 
-            </fieldset>
+				<input type="number" class="form-control" id="assists" name="assists" required>
 
-            <!-- Create 'Add Person' and 'Cancel' buttons -->
-			<input type="submit" value="Add Stats" name="Add_Stats" class="btn btn-primary" style="margin:.5rem;">
+				<input type="submit" value="Add Stats" name="Add_Stats" class="btn btn-primary" style="margin:.5rem;">
+				<a href='/visitingteams'><input class="btn" type="button" value="Cancel"></a> 
+            </fieldset>
+			
         </form>
 	</div><!--insert-->
