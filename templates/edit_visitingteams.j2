@@ -3,19 +3,18 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Edit Visiting Teams</title>
+	<title>Edit Visiting Team</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-<h1>Edit Visiting Teams</h1>
-     <a href="/">Home</a>
-            
+
             {% if data %}
             <table border="1">
+            <caption> Editing Team: </caption>
 			    <thead>
 				    <tr>
 					    
@@ -42,7 +41,7 @@
         </table> 
 
                 <form id="Edit_VisitingTeam" action="/edit_visiting_team/{{data[0].visiting_team_id}}" method="post">
-                <legend><strong>Edit Player</strong></legend>
+                <legend><strong>Edit Team</strong></legend>
                 <fieldset>
                     <input type="hidden" value="{{data[0].visiting_team_id}}" class="form-control" id="visiting_team_id" name="visiting_team_id" required>
 
@@ -55,9 +54,9 @@
                     <label for="color">Stadium:</label>
                     <input type="text" value="{{data[0].stadium}}" class="form-control" id="stadium" name="stadium" pattern="[A-Za-z0-9\s]{1,}" required> 
 
-                
+                    <input type="submit" value="Edit Visiting Team" name="Edit_VisitingTeam" class="btn btn-primary" style="margin:.5rem;">
+                    <a href='/visitingteams'><input class="btn" type="button" value="Cancel"></a>
                 </fieldset>
-                <input type="submit" value="Edit Visiting Team" name="Edit_VisitingTeam" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/visitingteams'><input class="btn" type="button" value="cancel"></a>
+
             </form>
 </html>
