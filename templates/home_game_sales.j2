@@ -3,13 +3,16 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
+
 <html>
     <head>
       <title>Home Game Sales</title>   
     </head>
     <body>
-    <h1>Home Game Sales</h1>
-   <a href="/">Home</a> - <a href="/visitingteams">Visiting Teams</a> - <a href="/players">Players</a> - <a href="/player_stats">Player Stats</a> - <a href="/home_game_sales">Home Game Sales</a> - <a href="/playerteams">Player Teams</a>
+    <h1 class="header allh1">Home Game Sales</h1>
+   <div class="topnav"><a href="/">Home</a> - <a href="/visitingteams">Visiting Teams</a> - <a href="/players">Players</a> - <a href="/player_stats">Player Stats</a> - <a href="/home_game_sales">Home Game Sales</a> - <a href="/playerteams">Player Teams</a></div>
              
             {% if data %}
             <table border="1">
@@ -50,12 +53,12 @@
 			<legend><strong>Add Game Data</strong></legend>
 			<fieldset>
                 <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
-				<label for="make">Game Date:</label>
+				<label for="make">Date:</label>
 				<input type="Date" class="form-control" id="home_game_date" name="home_game_date" required>
 
 				<label for="make">Visitor:</label>
 				<select name="visiting_team_id" id="visiting_team_id">
-					<option value="" </option>
+					<option value=""> None </option>
             		{% for item in visiting_team_data %}
             		<option value="{{item.visiting_team_id}}">{{item.name}} </option>
             		{% endfor %}
@@ -69,9 +72,12 @@
 
 				<label for="color">Concession Sales:</label>
 				<input type="float" class="form-control" id="concession_revenue" name="concession_revenue" required> 
+                
+				<input type="submit" value="Add Game" name="Add_Game" class="btn btn-primary" style="margin:.5rem;">
+			    <a href='/visitingteams'><input class="btn" type="button" value="Cancel"></a>
+
             </fieldset>
 
-            <!-- Create 'Add Person' and 'Cancel' buttons -->
-			<input type="submit" value="Add Game" name="Add_Game" class="btn btn-primary" style="margin:.5rem;">
+
         </form>
 	</div><!--insert-->
