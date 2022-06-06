@@ -1,0 +1,137 @@
+
+body{
+    color:darkred;
+    background-color: blanchedalmond;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 200px;
+    border-style: double;
+    border-color: darkred;
+    border-width: 7px;
+
+}
+
+.hpbody{
+    padding-left: 657px;
+    padding-right: 657px;
+}
+
+
+.header{
+    color:darkred;
+    text-align: center;
+    
+}
+
+.homepage{
+    font-size: 60px;
+}
+.homepage2{
+    font-size: 40px;
+}
+
+.allh1{
+    font-size: 60px;
+}
+
+.topnav{
+    text-align: center;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 50px;
+}
+
+.topnav a:hover {
+    background-color:darkred;
+    color: blanchedalmond;
+  }
+
+table{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+tr:nth-child(even) {background-color: darkred;
+color: blanchedalmond;
+}
+
+#insertVisting{
+    padding-top: 40px;
+    text-align: center;
+    font-size: 25px;
+
+}
+
+input[type=submit]{
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.btn{
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 20px;  
+}
+
+.btn-default{ 
+    border:0 none;
+    cursor:pointer;
+    background: none;
+}
+
+.btn-primary{
+    align-self: center;
+}
+
+legend{
+    font-size: 50px;
+    text-align: center;
+}
+
+caption{
+   font-weight: bolder;
+    font-size: 60px;
+    text-align: center;
+}
+
+#Edit_Home_Game_Sales{
+    border: none;
+    text-align: center;
+
+}
+
+fieldset{
+    border: none;
+    font-size: 25;
+    text-align: center;
+}
+
+#insertPlayer{
+    padding-top: 40px;
+    text-align: center;
+    font-size: 25px;
+
+}
+
+#searchPlayer{
+    padding-top: 40px;
+    text-align: center;
+    font-size: 25px;
+}
+
+#insertPlayerTeams{
+    padding-top: 40px;
+    text-align: center;
+    font-size: 25px; 
+}
