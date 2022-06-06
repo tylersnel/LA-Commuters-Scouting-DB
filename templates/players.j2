@@ -3,13 +3,16 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
+
 <html>
     <head>
       <title>Players</title>   
     </head>
     <body>
-    <h1>Players</h1>
-    <a href="/">Home</a> - <a href="/visitingteams">Visiting Teams</a> - <a href="/players">Players</a> - <a href="/player_stats">Player Stats</a> - <a href="/home_game_sales">Home Game Sales</a> - <a href="/playerteams">Player Teams</a>
+    <h1 class="header allh1">Players</h1>
+    <div class="topnav"><a href="/">Home</a> - <a href="/visitingteams">Visiting Teams</a> - <a href="/players">Players</a> - <a href="/player_stats">Player Stats</a> - <a href="/home_game_sales">Home Game Sales</a> - <a href="/playerteams">Player Teams</a></div>
             
             {% if data %}
             <table border="1">
@@ -56,6 +59,7 @@
         <label for ="year">Year</label>
         <input type="text" id="year" name="year" required>
         <input type="submit" value="Add" name="Add_Player">
+        <a href='/visitingteams'><input class="btn" type="button" value="Cancel"></a>
     </form>
 </div>
     <div id="search">
@@ -78,4 +82,6 @@
 </div>
 
 </html>
+    
+
     
