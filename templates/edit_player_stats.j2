@@ -2,6 +2,11 @@
 <!--Date: 5/26/2022-->
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
+
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
+
+
 <html>
 
 <head>
@@ -62,10 +67,10 @@
 
                     <label for="color">Assists:</label>
                     <input type="number" value="{{data[0].assists}}" class="form-control" id="assists" name="assists" required> 
-                
+                    <input type="submit" value="Edit Player Stats" name="Edit_Player_Stats" class="btn btn-primary" style="margin:.5rem;">
+                    <a href='/player_stats'><input class="btn" type="button" value="Cancel"></a>
                 </fieldset>
-                <input type="submit" value="Edit Player Stats" name="Edit_Player_Stats" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/player_stats'><input class="btn" type="button" value="Cancel"></a>
+
             </form>
 
 </html>
