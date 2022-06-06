@@ -3,6 +3,8 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
 
 <html>
 
@@ -48,24 +50,24 @@
                     
                     <input type="hidden" value="{{data[0].player_id}}" class="form-control" id="player_id" name="player_id" required>
 
-                    <label for="make">first name:</label>
+                    <label for="make">First name:</label>
                     <input type="text" value="{{data[0].first_name}}" class="form-control" id="first_name" name="first_name" pattern="[A-Za-z]{1,}" required>
 
-                    <label for="model">last name:</label>
+                    <label for="model">Last name:</label>
                     <input type="text" value="{{data[0].last_name}}" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z0-9]{1,}" required>
                         
-                    <label for="color">age:</label>
+                    <label for="color">Age:</label>
                     <input type="number" value="{{data[0].age}}" class="form-control" id="age" name="age" required> 
 
-                    <label for="color">height:</label>
+                    <label for="color"Height:</label>
                     <input type="number" value="{{data[0].height}}" class="form-control" id="height" name="height" required> 
 
-                    <label for="color">year:</label>
+                    <label for="color">Year:</label>
                     <input type="number" value="{{data[0].year}}" class="form-control" id="year" name="year" required> 
-                
+                    <input type="submit" value="Edit Player" name="Edit_Players" class="btn btn-primary" style="margin:.5rem;">
+                    <a href='/players'><input class="btn" type="button" value="Cancel"></a>
                 </fieldset>
-                <input type="submit" value="Edit Player" name="Edit_Players" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/players'><input class="btn" type="button" value="cancel"></a>
+
             </form>
 
 </html>
