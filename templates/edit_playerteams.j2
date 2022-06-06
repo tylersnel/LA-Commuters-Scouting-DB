@@ -3,6 +3,9 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
+
 <html>
 
 <head>
@@ -10,7 +13,7 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1>Edit Player Teams</h1>
+
 
         <table border="1" cellpadding="5"> 
             <caption> Editing Player Teams: </caption>
@@ -60,12 +63,10 @@
                     <label for="make">Contract Expiration:</label>
                     <input type="date" value="{{data[0].contract_expiration}}" class="form-control" id="contract_expiration" name="contract_expiration" pattern="[A-Za-z]{1,}" required>
 
-
-
-                
+                    <input type="submit" value="Edit Player Teams" name="Edit_PlayerTeams" class="btn btn-primary" style="margin:.5rem;">
+                    <a href='/playerteams'><input class="btn" type="button" value="cancel"></a>
                 </fieldset>
-                <input type="submit" value="Edit Player Teams" name="Edit_PlayerTeams" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/playerteams'><input class="btn" type="button" value="cancel"></a>
+
             </form>
 
 
