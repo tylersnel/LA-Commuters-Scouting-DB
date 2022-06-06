@@ -3,6 +3,9 @@
 <!--Based on:-->
 <!--Source URL:https://github.com/osu-cs340-ecampus/flask-starter-app -->
 
+<!-- Our CSS -->
+<link href="{{url_for('static', filename='app.css')}}" rel="stylesheet">
+
 <html>
 
 <head>
@@ -46,10 +49,11 @@
 
                     <input type="hidden" value="{{data[0].home_game_id}}" class="form-control" id="home_game_id" name="home_game_id" required>
 
-                    <input type="date" value="{{data[0].home_game_date}}" class="form-control" id="home_game_date" name="home_game_date" required>
+                    Game Date: <input type="date" value="{{data[0].home_game_date}}" class="form-control" id="home_game_date" name="home_game_date" required>
 
                     <label for="make">Visitor:</label>
 				    <select name="visiting_team_id" id="visiting_team_id">
+                        <option value=""> None </option>
                         {% for item in visiting_team_data %}
                         <option value="{{item.visiting_team_id}}">{{item.name}} </option>
                         {% endfor %}
@@ -63,10 +67,11 @@
 
                     <label for="color">Concessions:</label>
                     <input type="float" value="{{data[0].concession_revenue}}" class="form-control" id="concession_revenue" name="concession_revenue" required> 
-                
+                    
+                    <input type="submit" value="Edit Sales" name="Edit_Home_Game_Sales" class="btn btn-primary" style="margin:.5rem;">
+                    <a href='/home_game_sales'><input class="btn btn-primary" type="button" value="Cancel"></a>
                 </fieldset>
-                <input type="submit" value="Edit Sales" name="Edit_Home_Game_Sales" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/home_game_sales'><input class="btn" type="button" value="Cancel"></a>
+
             </form>
 
 </html>
