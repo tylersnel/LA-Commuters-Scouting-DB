@@ -21,7 +21,7 @@ This Scouting Database is designed for a fictional Los Angeles basketball team t
 - **Real-Time Updates**: Keep scouting data and revenue figures up to date with real-time input capabilities.
 
 ## Technologies Used
-- **Frontend**: HTML, CSS, Python, Flask
-- **Backend**: Jinja
+- **Frontend**: HTML, CSS
+- **Backend**: Jinja, Flask
 - **Database**: MySQL, MySQLdb
 - **Version Control**: Git, GitHub
